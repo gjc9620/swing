@@ -4,7 +4,7 @@
 
 #HOW TO USE
 ```
- swing = new Swing(Dom, text, startColor, endColor);
+ let swing = new Swing(Dom, text, startColor, endColor);
  swing.action()
 ```
 #demo 
