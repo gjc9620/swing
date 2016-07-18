@@ -8,11 +8,12 @@ const co = function (genfun) {
     if(ret.done) return
     ret.value((err, val)=>{
       if(err){ return console.error(err) }
-    next(val);
-  })
-  }
-  next()
+      next(val);
+    });
+  };
+  next();
 };
+
 let text =  document.getElementsByClassName("text");
 let test =  document.getElementById("test");
 let data = test.innerHTML;
@@ -21,22 +22,18 @@ let flag = 0;
 let start = null;
 let domHeight = 20;
 let rowCount = test.offsetHeight / domHeight;
-
 let Doms = new Array(rowCount).fill(1).map((v, i)=>{
-    return (`<div class="row"   >
-  <div   class="text" style="top:-${i*domHeight}px">${data}
-  </div>
-  </div>`)
+    return (
+      `<div class="row"   >
+		    <div   class="text" style="top:-${i*domHeight}px">${data}
+		    </div>
+		  </div>`
+		)
 });
-
 body.innerHTML = Doms.join("");
 
-
-
 const change = function(Dom){
-
   return callback=>{
-
     console.log(Dom);
     let flag = 0;
     let an = function(){
@@ -46,7 +43,6 @@ const change = function(Dom){
     };
     window.requestAnimationFrame(an);
   }
-
 };
 
 const changeStart = function () {
@@ -54,17 +50,23 @@ const changeStart = function () {
   let childNodesArr = [].slice.apply(childNodes);
   co(
     function *() {
-    for(let i=0;i<childNodesArr.length;i++){
-      yield change(childNodesArr[i].children[0]);
+      for(let i=0;i<childNodesArr.length;i++){
+        yield change(childNodesArr[i].children[0]);
+      }
     }
-  }
   )
 };
-//  const boom = changeStart();
-
-//  const rowOnclick = function(event){
-////    for
-////    boom
-//    for (let g of changeStart){}
-//  };
 [].slice.apply(text).forEach(v=> v.onclick = changeStart );
+
+
+
+
+
+
+
+
+
+
+
+
+
